@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Urvara 🎂</title>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background: linear-gradient(to right, #ffe6f0, #ffcce0);
+      color: #3b003b;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 100px 20px 40px;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      color: #d81b60;
+    }
+    .reveal-btn {
+      margin-top: 30px;
+      padding: 12px 28px;
+      font-size: 1rem;
+      background: #f06292;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .reveal-btn:hover {
+      background: #ec407a;
+    }
+
+    .section {
+      display: none;
+      padding: 40px 20px;
+      animation: fadeIn 1s ease forwards;
+      text-align: center;
+    }
+    .memory-card, .genshin-card {
+      background: #fff0f5;
+      border-radius: 12px;
+      margin: 20px auto;
+      max-width: 600px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .memory-card img, .genshin-card img {
+      width: 100%;
+      display: block;
+    }
+    .memory-card p, .genshin-card p {
+      padding: 15px;
+      font-style: italic;
+      font-size: 1rem;
+      color: #5a005a;
+    }
+    .section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: #c2185b;
+    }
+
+    .genshin-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .genshin-card {
+      width: 300px;
+      transition: transform 0.3s ease;
+    }
+    .genshin-card:hover {
+      transform: scale(1.05);
+    }
+
+    .final-msg {
+      background:#fff0f5;
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-size: 1.4rem;
+      color:#5a005a;
+      line-height: 1.8;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    #balloons {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .balloon {
+      position: absolute;
+      width: 40px; height: 60px;
+      background: pink;
+      border-radius: 50% 50% 45% 45%;
+      animation: floatUp 10s infinite ease-in;
+      opacity: 0.7;
+    }
+    .balloon::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 40px;
+      background: #aaa;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) translateX(0); }
+      100% { transform: translateY(-200px) translateX(20px); }
+    }
+
+    .audio-control {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1001; /* Higher than overlay (998) */
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  color: #e91e63;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+
+    .reveal-wrapper {
+      margin-top: 30px;
+    }
+
+    .instruction {
+      font-size: 0.95rem;
+      color: #a80061;
+      font-style: italic;
+      margin-top: 15px;
+    }
+    #overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  text-align: center;
+  padding: 20px;
+}
+
+#overlay h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #d81b60;
+}
+
+.arrow {
+  font-size: 2rem;
+  animation: bounce 1s infinite;
+  margin-top: 10px;
+  color: #e91e63;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+  </style>
+</head>
+<body>
+
+  <div id="balloons"></div>
+  <!-- Overlay asking to click speaker -->
+<div id="overlay">
+  <h2>You!!! Click the 🔊 speaker button top right to start the surprise 🎵</h2>
+  <div class="arrow" style="position: absolute; top: 75px; right: 20px; transform: rotate(180deg);">⬆️</div>
+</div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="images/Blue-Yung-Kai.mp3" type="audio/mpeg" />
+  </audio>
+  <button class="audio-control" onclick="toggleMusic()">🔊</button>
+
+  <!-- Lightbox Popup -->
+  <div id="lightbox" style="display:none; position:fixed; z-index:999; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; flex-direction:column;">
+    <img id="lightbox-img" src="" style="max-width:90%; max-height:80%; border-radius:12px;" />
+    <p id="lightbox-caption" style="color:#fff; padding:15px; font-size:1.1rem; max-width:90%; text-align:center;"></p>
+    <button onclick="closeLightbox()" style="margin-top:10px; padding:10px 20px; font-size:1rem; background:#f06292; color:white; border:none; border-radius:6px;">Close</button>
+  </div>
+
+  <header>
+    <h1>Happy Birthday Urvara 🎉</h1>
+    <button class="reveal-btn" onclick="reveal()">Reveal Album</button>
+    <p class="instruction">💡 Keep pressing the "Reveal Album" button until the last page pops up — or you’ll miss half the fun!</p>
+  </header>
+
+  <!-- Memory 1 -->
+  <section class="section" id="memory1">
+    <h2>📸 Memory #1</h2>
+    <div class="memory-card">
+      <img src="images/group.jpg" alt="Group Photo" onclick="openLightbox(this.src, 'Only one chaotic photo available. But still — effort was made. Respect it.')" />
+      <p>Only one chaotic photo available. But still — effort was made. Respect it.</p>
+    </div>
+    <div class="reveal-wrapper">
+      <button class="reveal-btn" onclick="reveal()">Reveal Next</button>
+    </div>
+  </section>
+
+  <!-- Compliments -->
+  <section class="section" id="compliment">
+    <h2>Random Appreciations 💬</h2>
+    <div class="memory-card">
+      <p>You’re chaotic, frank, unpredictable — and somehow all of that makes perfect sense.</p>
+    </div>
+    <div class="memory-card">
+      <p>Also, you literally have main character energy. I’m just a sidekick trying to keep up.</p>
+    </div>
+    <div class="memory-card">
+      <p>Stop being so lazy! You have a lot of potential. You can do it — it’s just that you’re too lazy 😤</p>
+    </div>
+    <div class="reveal-wrapper">
+      <button class="reveal-btn" onclick="reveal()">Reveal Next</button>
+    </div>
+  </section>
+
+  <!-- Genshin Memories -->
+  <section class="section" id="genshin">
+    <h2>🎮 Carried in Genshin. Exposed publicly.</h2>
+    <div class="genshin-gallery">
+      <div class="genshin-card">
+        <img src="images/snow.jpg" onclick="openLightbox(this.src, 'The famous snow quest. You carried. I ran around like a confused potato. ❄️🥔')" />
+        <p>The famous snow quest. You carried. I ran around like a confused potato. ❄️🥔</p>
+      </div>
+      <div class="genshin-card">
+        <img src="images/stare.jpg" onclick="openLightbox(this.src, 'Peak gaming moment: Just standing there. Staring. For no reason.')" />
+        <p>Peak gaming moment: Just standing there. Staring. For no reason.</p>
+      </div>
+      <div class="genshin-card">
+        <img src="images/somehow.jpg" onclick="openLightbox(this.src, 'Somehow ended up here. No idea how. You probably knew.')" />
+        <p>Somehow ended up here. No idea how. You probably knew.</p>
+      </div>
+      <div class="genshin-card">
+        <img src="images/carry.jpg" onclick="openLightbox(this.src, 'This whole session was basically: you - damage dealer, me - moral support. 💪😎')" />
+        <p>This whole session was basically: you - damage dealer, me - moral support. 💪😎</p>
+      </div>
+      <div class="genshin-card">
+        <img src="images/ice.jpg" onclick="openLightbox(this.src, 'We crossed the ice-capped water all the way up here just to vibe. Peak productivity. ⛰️✨')" />
+        <p>We crossed the ice-capped water all the way up here just to vibe. Peak productivity. ⛰️✨</p>
+      </div>
+    </div>
+    <div class="reveal-wrapper">
+      <button class="reveal-btn" onclick="reveal()">Reveal Final Message</button>
+    </div>
+  </section>
+
+  <!-- Final Message -->
+  <section class="section" id="final">
+    <div class="final-msg">
+      That’s all. Website’s done. One image. Five screenshots. A lot of scrolling.<br><br>
+      But if you smiled even once — totally worth it. 😎<br><br>
+      Happy Birthday again, Urvara!
+    </div>
+  </section>
+
+ <script>
+  let index = 0;
+  const sections = ["memory1", "compliment", "genshin", "final"];
+
+  function reveal() {
+    if (index < sections.length) {
+      document.getElementById(sections[index]).style.display = "block";
+      index++;
+      setTimeout(() => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }, 200);
+    }
+  }
+
+  function toggleMusic() {
+    const audio = document.getElementById("bgMusic");
+    const btn = document.querySelector(".audio-control");
+
+    if (audio.paused) {
+      audio.play();
+      btn.textContent = "🔊";
+
+      // Remove overlay after enabling music
+      const overlay = document.getElementById("overlay");
+      if (overlay) overlay.style.display = "none";
+    } else {
+      audio.pause();
+      btn.textContent = "🔇";
+    }
+  }
+
+  function openLightbox(src, caption) {
+    document.getElementById("lightbox").style.display = "flex";
+    document.getElementById("lightbox-img").src = src;
+    document.getElementById("lightbox-caption").innerText = caption;
+  }
+
+  function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+
+  function generateBalloons() {
+    const container = document.getElementById('balloons');
+    for (let i = 0; i < 15; i++) {
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.background = `hsl(${Math.random() * 360}, 70%, 75%)`;
+      balloon.style.animationDuration = 8 + Math.random() * 5 + 's';
+      container.appendChild(balloon);
+    }
+  }
+  window.onload = generateBalloons;
+</script>
+</body>
+</html>
+
